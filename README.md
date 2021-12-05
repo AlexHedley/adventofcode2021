@@ -49,3 +49,9 @@ Then run
 ```bash
 *Main> main
 ```
+
+### C#
+
+Any C# scripts will require [dotnet-script](https://github.com/filipw/dotnet-script).
+
+For C# solutions `dotnet script dayXX/solution.csx`

@@ -7,6 +7,7 @@
 `cabal init`
 
 <!-- `cabal install HUnit` -->
+<!-- `cabal install split` -->
 
 ## Tests
 
@@ -43,3 +44,15 @@ Then run
 Output from [input.txt](day01/input.txt).
 
 > 1446
+
+---
+
+## C#
+
+`cd day01`
+
+`dotnet script solution.csx`
+
+Or
+
+`dotnet script day01/solution.csx`
