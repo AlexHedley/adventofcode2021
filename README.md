@@ -5,11 +5,13 @@
 ---
 
 ![Haskell](https://img.shields.io/badge/Haskell-5e5086?style=for-the-badge&logo=haskell&logoColor=white)
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
 
 ## Solutions
 
 - [Day 1](day01/README.md)
 - [Day 2](day02/README.md)
+- [Day 3](day03/README.md)
 
 <!-- [![For: Advent Of Code](https://img.shields.io/badge/for-advent_of_code-green.svg)](https://adventofcode.com/) -->
 <!-- [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)  -->

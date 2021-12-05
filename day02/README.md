@@ -2,7 +2,7 @@
 
 - [Puzzle](PUZZLE.md)
 
-Output from [input.txt](day01/input.txt).
+Output from [input.txt](day02/input.txt).
 
 **Part 1**
 
