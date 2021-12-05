@@ -2,6 +2,18 @@
 
 - [Puzzle](PUZZLE.md)
 
+Output from [input.txt](day01/input.txt).
+
+**Part 1**
+
+> 1446
+
+**Part 2**
+
+> 1486
+
+---
+
 ## Setup
 
 `cabal init`
@@ -40,10 +52,6 @@ Then run
 ```bash
 *Main> main
 ```
-
-Output from [input.txt](day01/input.txt).
-
-> 1446
 
 ---
 
