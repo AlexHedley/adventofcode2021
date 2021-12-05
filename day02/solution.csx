@@ -2,17 +2,22 @@ Console.WriteLine("Day 2");
 
 private int horizontal = 0;
 private int depth = 0;
+private int aim = 0;
 
 void forward(int x) {
+    // horizontal += x;
     horizontal += x;
+    depth += aim * x;
 }
 
 void down(int x) {
-    depth += x;
+    // depth += x;
+    aim += x;
 }
 
 void up(int x) {
-    depth -= x;
+    // depth -= x;
+    aim -= x;
 }
 
 // string[] lines = System.IO.File.ReadAllLines(@"input-sample.txt");

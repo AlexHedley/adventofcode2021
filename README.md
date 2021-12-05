@@ -9,6 +9,7 @@
 ## Solutions
 
 - [Day 1](day01/README.md)
+- [Day 2](day02/README.md)
 
 <!-- [![For: Advent Of Code](https://img.shields.io/badge/for-advent_of_code-green.svg)](https://adventofcode.com/) -->
 <!-- [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)  -->
