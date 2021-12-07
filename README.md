@@ -12,6 +12,10 @@
 - [Day 1](day01/README.md)
 - [Day 2](day02/README.md)
 - [Day 3](day03/README.md)
+<!-- - [Day 4](day04/README.md) -->
+<!-- - [Day 5](day05/README.md) -->
+<!-- - [Day 6](day06/README.md) -->
+- [Day 7](day07/README.md)
 
 <!-- [![For: Advent Of Code](https://img.shields.io/badge/for-advent_of_code-green.svg)](https://adventofcode.com/) -->
 <!-- [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)  -->
