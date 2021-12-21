@@ -7,6 +7,15 @@
 ![Haskell](https://img.shields.io/badge/Haskell-5e5086?style=for-the-badge&logo=haskell&logoColor=white)
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
 
+## Ranking
+
+Private Leaderboard
+
+<!-- 20-  84 **■°°■*°°°°° -->
+18- 109 **■°°■*°°°°°°°°°°°°°■
+
+Key: * Both | ■ One | ° None |
+
 ## Solutions
 
 - [Day 1](day01/README.md)
@@ -16,6 +25,20 @@
 <!-- - [Day 5](day05/README.md) -->
 <!-- - [Day 6](day06/README.md) -->
 - [Day 7](day07/README.md)
+<!-- - [Day 8](day08/README.md) -->
+<!-- - [Day 9](day09/README.md) -->
+<!-- - [Day 10](day10/README.md) -->
+<!-- - [Day 11](day11/README.md) -->
+<!-- - [Day 12](day12/README.md) -->
+<!-- - [Day 13](day13/README.md) -->
+<!-- - [Day 14](day14/README.md) -->
+<!-- - [Day 15](day15/README.md) -->
+<!-- - [Day 16](day16/README.md) -->
+<!-- - [Day 17](day17/README.md) -->
+<!-- - [Day 18](day18/README.md) -->
+<!-- - [Day 19](day19/README.md) -->
+<!-- - [Day 20](day20/README.md) -->
+- [Day 21](day21/README.md)
 
 <!-- [![For: Advent Of Code](https://img.shields.io/badge/for-advent_of_code-green.svg)](https://adventofcode.com/) -->
 <!-- [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)  -->
@@ -50,6 +73,10 @@ Prelude> `:load app/Main.hs`
 or
 
 `ghci app/Main.hs`
+
+Or if you have dependencies
+
+`cabal repl`
 
 Then run
 
