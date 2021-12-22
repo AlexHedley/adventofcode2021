@@ -12,7 +12,8 @@
 Private Leaderboard
 
 <!-- 20-  84 **■°°■*°°°°° -->
-18- 109 **■°°■*°°°°°°°°°°°°°■
+<!-- 18- 109 **■°°■*°°°°°°°°°°°°°■ -->
+17- 134 **■°°■*°°°°°°°°°°°°°■■
 
 Key: * Both | ■ One | ° None |
 
@@ -39,6 +40,7 @@ Key: * Both | ■ One | ° None |
 <!-- - [Day 19](day19/README.md) -->
 <!-- - [Day 20](day20/README.md) -->
 - [Day 21](day21/README.md)
+- [Day 22](day21/README.md)
 
 <!-- [![For: Advent Of Code](https://img.shields.io/badge/for-advent_of_code-green.svg)](https://adventofcode.com/) -->
 <!-- [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)  -->
