@@ -50,6 +50,16 @@ boards.ToList().ForEach(x => { PrintMatrix(x); Console.WriteLine(); } );
 
 // --- --- ---
 
+Dictionary<int, bool> complete = new Dictionary<int, bool>();
+// boards.ToList().ForEach(x => complete.Add(););
+
+for (var i = 0; i < numOfBoards; i++)
+{
+    complete.Add(i, false);
+}
+var c = complete.Select(kvp => kvp.Key + ": " + kvp.Value.ToString());
+Console.WriteLine($"Dictionary: {string.Join(Environment.NewLine, c)}");
+
 // Loop through each number and check if it's on any board.
 foreach (var drawnNumber in drawnNumbers)
 {
@@ -78,7 +88,11 @@ foreach (var drawnNumber in drawnNumbers)
 
             Console.ResetColor();
 
-            goto End;
+            complete[i] = true;
+
+            var allCompleted = complete.Values.All(c=> c == true);
+            if (allCompleted)
+                goto End;
         }
     }
 }
