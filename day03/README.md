@@ -6,7 +6,7 @@ Output from [input.txt](day03/input.txt).
 
 **Part 1**
 
-> 
+> 2967914
 
 **Part 2**
 
