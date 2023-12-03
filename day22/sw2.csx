@@ -6,8 +6,7 @@ using System.Text.RegularExpressions;
 Console.WriteLine("Day 22");
 
 // string[] lines = System.IO.File.ReadAllLines(@"input-sample.txt");
-// string[] lines = System.IO.File.ReadAllLines(@"input.txt");
-string[] lines = System.IO.File.ReadAllLines(@"input-part2.txt");
+string[] lines = System.IO.File.ReadAllLines(@"input.txt");
 
 // EXAMPLE: on x=10..12,y=10..12,z=10..12
 // string pattern = "@"(on|off) (x=-?[0-9]*..-?[0-9]*),(y=-?[0-9]*..-?[0-9]*),(z=-?[0-9]*..-?[0-9]*)";
@@ -24,9 +23,12 @@ foreach (var line in lines)
     var y = new Bounds(Int32.Parse(matchComplex.Groups[6].Value), Int32.Parse(matchComplex.Groups[7].Value));
     var z = new Bounds(Int32.Parse(matchComplex.Groups[9].Value), Int32.Parse(matchComplex.Groups[10].Value));
     var rebootStep = new RebootStep(action, x, y, z);
-    // Console.WriteLine(rebootStep);
-    // if (rebootStep.IsValid())
+    Console.WriteLine(rebootStep);
+    if (rebootStep.IsValid())
+    {
+        Console.WriteLine($"IsValid");
         rebootSteps.Add(rebootStep);
+    }
 }
 
 Console.WriteLine($"Reboot Steps: #{rebootSteps.Count}");
@@ -97,6 +99,10 @@ public class RebootStep
     public List<int> YRange { get { return BoundsRange(Y); } }
     public List<int> ZRange { get { return BoundsRange(Z); } }
 
+    // public List<int[]> XPermutations { get { return XRange.Permutations().ToList(); } }
+    // public List<int[]> YPermutations { get { return YRange.Permutations().ToList(); } }
+    // public List<int[]> ZPermutations { get { return ZRange.Permutations().ToList(); } }
+
     // public List<int[]> Perms()
     // {
     //     var list = new List<int[]>();
@@ -138,7 +144,9 @@ public class RebootStep
     {
         return Enumerable.Range(x.Lower, x.Upper-x.Lower+1).ToList();
     }
-    
+
+    // on x=1947..32687,y=-15868..-4827,z=74913..89456
+
     public bool IsValid()
     {
         if ((X.Lower > -51 && X.Lower < 51) && (X.Upper > -51 && X.Upper < 51))
@@ -164,3 +172,39 @@ public struct Bounds
 
     public override string ToString() => $"{Lower}..{Upper}";
 }
+
+// https://stackoverflow.com/a/58826787/2895831
+// https://stackoverflow.com/a/53039741/2895831 - error CS1109: Extension methods must be defined in a top level static class; PermutationExtension is a nested class
+// public static class PermutationExtension
+// {
+    public static IEnumerable<T[]> Permutations<T>(this IEnumerable<T> source)
+    {
+        var sourceArray = source.ToArray();
+        var results = new List<T[]>();
+        Permute(sourceArray, 0, sourceArray.Length - 1, results);
+        return results;
+    }
+
+    private static void Swap<T>(ref T a, ref T b)
+    {
+        T tmp = a;
+        a = b;
+        b = tmp;
+    }
+
+    private static void Permute<T>(T[] elements, int recursionDepth, int maxDepth, ICollection<T[]> results)
+    {
+        if (recursionDepth == maxDepth)
+        {
+            results.Add(elements.ToArray());
+            return;
+        }
+
+        for (var i = recursionDepth; i <= maxDepth; i++)
+        {
+            Swap(ref elements[recursionDepth], ref elements[i]);
+            Permute(elements, recursionDepth + 1, maxDepth, results);
+            Swap(ref elements[recursionDepth], ref elements[i]);
+        }
+    }
+// }
