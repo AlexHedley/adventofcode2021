@@ -1,7 +1,7 @@
 Console.WriteLine("Day 9");
 
-// string[] lines = System.IO.File.ReadAllLines(@"input-sample.txt");
-string[] lines = System.IO.File.ReadAllLines(@"input.txt");
+string[] lines = System.IO.File.ReadAllLines(@"input-sample.txt");
+// string[] lines = System.IO.File.ReadAllLines(@"input.txt");
 
 var ROWS = lines.Length;
 var COLS = lines[0].Length;
