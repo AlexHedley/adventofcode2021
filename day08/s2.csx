@@ -249,12 +249,6 @@ foreach(var usp in uniqueSignalPatterns)
 
 Console.WriteLine($"1:{one} | 7:{seven} | 4:{four} | 8:{eight}");
 
-var completedNumbers = new List<char>();
-var completedLetters = new List<char>();
-
-// ONE
-Console.WriteLine("-- ONE --");
-
 var matchingOne = numberMappings.Where(x => x.count == 2).FirstOrDefault();
 Console.WriteLine($"{matchingOne.number} | {string.Join(" ", matchingOne.segments)} | #:{matchingOne.count}");
 var oneLetters = one.ToCharArray();
@@ -263,75 +257,20 @@ Console.WriteLine(string.Join(" ", oneLetters));
 var checks = new List<List<char[,]>>();
 var numbersMatrix = new List<char[,]>() { zeroDigit, oneDigit, twoDigit, threeDigit, fourDigit, fiveDigit, sixDigit, sevenDigit, eightDigit, nineDigit };
 
-UpdateNumberOne(matchingOne.segments, oneLetters);
-
-// SEVEN
-Console.WriteLine("-- SEVEN --");
-
-var matchingSeven = numberMappings.Where(x => x.count == 3).FirstOrDefault();
-Console.WriteLine($"{matchingSeven.number} | {string.Join(" ", matchingSeven.segments)} | #:{matchingSeven.count}");
-var sevenLetters = seven.ToCharArray();
-Console.WriteLine($"Seven Letters: {string.Join(" ", sevenLetters)}");
-
-var remainingLettersSeven = sevenLetters.Except(completedLetters).ToArray();
-Console.WriteLine($"Remaing Letters: {string.Join(" ", remainingLettersSeven)}");
-
-var numbersToCheckSeven = matchingSeven.segments.Except(completedNumbers).ToList();
-Console.WriteLine($"Numbers To Check: {string.Join(" ", numbersToCheckSeven)}");
-
-UpdateNumberSeven(numbersToCheckSeven, remainingLettersSeven);
-
-// FOUR
-Console.WriteLine("-- FOUR --");
-
-var matchingFour = numberMappings.Where(x => x.count == 4).FirstOrDefault();
-Console.WriteLine($"{matchingFour.number} | {string.Join(" ", matchingFour.segments)} | #:{matchingFour.count}");
-var fourLetters = four.ToCharArray();
-Console.WriteLine($"Four Letters: {string.Join(" ", fourLetters)}");
-
-var remainingLettersFour = fourLetters.Except(completedLetters).ToArray();
-Console.WriteLine($"Remaing Letters: {string.Join(" ", remainingLettersFour)}");
-
-var numbersToCheckFour = matchingFour.segments.Except(completedNumbers).ToList();
-Console.WriteLine($"Numbers To Check: {string.Join(" ", numbersToCheckFour)}");
-
-// UpdateNumberFour
-UpdateNumberWithCombinations(4, checks, numbersToCheckFour, remainingLettersFour);
+UpdateNumberOne();
 
 foreach(var check in checks)
 {
     PrintNumbers(check);
 }
 
-Console.WriteLine("--- --- ---");
-Console.WriteLine($"Checks #:{checks.Count}");
-Console.WriteLine($"Completed Letters: {string.Join(" ", completedLetters)}");
-Console.WriteLine($"Completed Numbers: {string.Join(" ", completedNumbers)}");
 
-Console.WriteLine();
-
-// --- --- ---
-
-// Testing
-
-// var product = 
-//     from first in numbersToCheckFour 
-//     from second in remainingLettersFour 
-//     select new[] { first, second };
-// product.ToList().ForEach(Console.WriteLine);
-
-// --- --- ---
-
-// Update Number One
-public void UpdateNumberOne(List<char> numbers, char[] letters)
+public void UpdateNumberOne()
 {
-    Console.WriteLine("UPDATE NUMBER 1");
-
     var a = 0;
-    for (var i = 0; i < numbers.Count; i++) // 3 6
+    for (var i = 0; i < matchingOne.segments.Count; i++) // 3 6
     {
-        Console.WriteLine($"a: {a} | i: {i} | {numbers[i]}");
-        completedNumbers.Add(numbers[i]);
+        Console.WriteLine($"a: {a} | i: {i}");
         
         // Console.WriteLine("ZERO");
         // PrintMatrix(zeroDigit);
@@ -339,108 +278,48 @@ public void UpdateNumberOne(List<char> numbers, char[] letters)
 
         // PrintNumbers(numbersMatrix);
 
-        var digits = new List<char[,]>(numbersMatrix);
+        var numbers = new List<char[,]>(numbersMatrix);
 
-        Console.WriteLine($"Number:{numbers[0+a]} | Letter:{letters[0]}");
+        Console.WriteLine($"Number:{matchingOne.segments[0+a]} | Letter:{oneLetters[0]}");
         // swap all 3(c) with a | swap all 6(f) with b
         // a = 3 | b = 6
-        // numbersMatrix.ForEach(m => FindAndSwapInMatrix(ref m, letters[0+a], letters[0]));
-        digits = FindAndSwapInMatrix(digits, numbers[0+a], letters[0]);
+        // numbersMatrix.ForEach(m => FindAndSwapInMatrix(ref m, matchingOne.segments[0+a], oneLetters[0]));
+        numbers = FindAndSwapInMatrix(numbers, matchingOne.segments[0+a], oneLetters[0]);
 
-        Console.WriteLine($"Number:{numbers[1-a]} | Letter:{letters[1]}");
+        Console.WriteLine($"Number:{matchingOne.segments[1-a]} | Letter:{oneLetters[1]}");
         // swap all 3(c) with b | swap all 6(f) with a
         // b = 3 | a = 6
-        // numbersMatrix.ForEach(m => FindAndSwapInMatrix(ref m, numbers[1-a], letters[1]));
-        digits = FindAndSwapInMatrix(digits, numbers[1-a], letters[1]);
+        // numbersMatrix.ForEach(m => FindAndSwapInMatrix(ref m, matchingOne.segments[1-a], oneLetters[1]));
+        numbers = FindAndSwapInMatrix(numbers, matchingOne.segments[1-a], oneLetters[1]);
         
-        checks.Add(digits);
+        checks.Add(numbers);
         
         a+=1;
         Console.WriteLine("--- --- ---");
     }
-    completedLetters.Add(letters[0]);
-    completedLetters.Add(letters[1]);
 }
 
-// Update Number Seven
-public void UpdateNumberSeven(List<char> numbers, char[] letters)
-{
-    Console.WriteLine("UPDATE NUMBER 7");
+// a a     b b
+// 0 0     1 1
+// 3 a     6 b
 
-    var sevenChecks = new List<List<char[,]>>();
+// b a     a b
+// 1 0     0 1
+// 6 a     3 b
 
-    foreach(var number in numbers)
-    {
-        foreach(var letter in letters)
-        {
-            Console.WriteLine($"Number:{number} | Letter:{letter}");
+Console.WriteLine();
 
-            foreach(var check in checks)
-            {
-                var digits = new List<char[,]>(check);
-                digits = FindAndSwapInMatrix(digits, number, letter);
-
-                sevenChecks.Add(digits);
-            }
-            completedLetters.Add(letter);
-        }
-        completedNumbers.Add(number);
-    }
-
-    checks = sevenChecks;
-}
-
-// Update Number Four
-public void UpdateNumberWithCombinations(int digit, List<List<char[,]>> checks, List<char> numbers, char[] letters)
-{
-    Console.WriteLine($"UPDATE DIGIT {digit}");
-
-    var updatedList = new List<List<char[,]>>();
-    
-    // 2 combinations - existing checks duplicated.
-    // Loop each with the combinations again. 
-
-    // var product = 
-    //     from first in numbers 
-    //     from second in letters 
-    //     select new[] { first, second };
-    // product.ToList().ForEach(Console.WriteLine);
-    
-    foreach(var check in checks)
-    {
-        for (var i = 0; i < numbers.Count; i++)
-        {
-            var digits = new List<char[,]>(check);
-            updatedList.Add(digits);
-        }
-    }
-
-    var combinationChecks = new List<List<char[,]>>();
-
-    var a = 0;
-    foreach(var list in updatedList)
-    {
-        // PrintNumbers(combinationCheck);
-        var digits = new List<char[,]>(list);
-        digits = FindAndSwapInMatrix(digits, numbers[0+a], letters[0]); // 2 e  // 4 e
-        digits = FindAndSwapInMatrix(digits, numbers[1-a], letters[1]); // 4 f  // 2 f
-
-        combinationChecks.Add(digits);
-
-        a+=1;
-    }
-
-    Console.WriteLine($"#:{combinationChecks.Count}");
-
-    completedLetters.AddRange(letters);
-
-    checks = combinationChecks;
-}
+// --- --- ---
 
 // Print Numbers
 public void PrintNumbers(List<char[,]> numbers)
 {
     numbers.ForEach(x => { PrintMatrix(x); Console.WriteLine(""); } );
+
+    // foreach (var number in numbers)
+    // {
+    //     PrintMatrix(number);
+    // }
     Console.WriteLine("--- --- ---");
 }
 
@@ -505,6 +384,170 @@ public List<char[,]> FindAndSwapInMatrix(List<char[,]> numbers, char itemToFind,
     }
     return newNumbers;
 }
+
+//  aaaa    ....    aaaa    aaaa    ....    aaaa    aaaa    aaaa    aaaa    aaaa
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+//  ....    ....    dddd    dddd    dddd    dddd    dddd    ....    dddd    dddd
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+// aaaa      dddd
+//b    c    e    a
+//b    c    e    a
+// dddd      ffff
+//e    f    g    b
+//e    f    g    b
+// gggg      cccc 
+
+// a => d
+// b => e
+// c => a
+// d => f
+// e => g
+// f => b
+// g => c
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  aaaa    ....    aaaa    aaaa    ....    aaaa    aaaa    aaaa    aaaa    aaaa
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+//  ....    ....    dddd    dddd    dddd    dddd    dddd    ....    dddd    dddd
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+// acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf
+//    8                       7                 4          1  |
+
+// Cominations
+
+// 1 & 7 - (a b) d
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// #    a  .    a  .    a  .    a  #    a  #    .  #    .  .    a  #    a  #    a
+// #    a  .    a  .    a  .    a  #    a  #    .  #    .  .    a  #    a  #    a
+//  ....    ....    ####    ####    ####    ####    ####    ....    ####    ####
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 4 - ((a b) d) e f
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 8 - ((a b) d) e f | acedgfb => adefb cg 
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+//  cccc    ....    cccc    cccc    ....    cccc    cccc    ....    cccc    cccc
+
+//            2       3       5
+// cdfbe    dafcg | dafbg | defbg       bcdef    acdfg  abdfh bdefg
+// gcdfa    dafcg | dafbg | defbg       acdfg   *acdfg* abdfh bdefg
+// fbcad    dafcg | dafbg | defbg       abcdf    acdfg  abdfh bdefg
+
+//            2       3       5
+// cdfbe    dafgc | dafbc | defbc       bcdef    acdfg  abcdf *bcdef*
+// gcdfa    dafgc | dafbc | defbc       acdfg   *acdfg* abcdf  bcdef
+// fbcad    dafgc | dafbc | defbc       abcdf    acdfg *abcdf* bcdef
+
+// 4 - ((a b) d) f e
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 8 - ((a b) d) f e | acedgfb => adefb cg
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+//  cccc    ....    cccc    cccc    ....    cccc    cccc    ....    cccc    cccc
+
+// 2 3 5
+
+// cdfbe   daegc | daebc | dfebc       bcdef   acdeg abcde *bcdef*
+// gcdfa   daegc | daebc | dfebc       acdfg   acdeg abcde bcefd
+// fbcad   daegc | daebc | dfebc       abcdf   acdeg abcde abdef
+
+// --- --- ---
+
+// 1 & 7 - (b a) d
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// #    b  .    b  .    b  .    b  #    b  #    .  #    .  .    b  #    b  #    b
+// #    b  .    b  .    b  .    b  #    b  #    .  #    .  .    b  #    b  #    b
+//  ....    ....    ####    ####    ####    ####    ####    ....    ####    ####
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 4 - ((b a) d) e f
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    b  .    b  .    b  .    b  e    b  e    .  e    .  .    b  e    b  e    b
+// e    b  .    b  .    b  .    b  e    b  e    .  e    .  .    b  e    b  e    b
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 4 - ((b a) d) f e
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    b  .    b  .    b  .    b  f    b  f    .  f    .  .    b  f    b  f    b
+// f    b  .    b  .    b  .    b  f    b  f    .  f    .  .    b  f    b  f    b
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
 
 Console.WriteLine("Press any key to exit.");
 System.Console.ReadKey();

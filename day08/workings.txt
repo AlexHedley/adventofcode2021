@@ -1,0 +1,163 @@
+//  aaaa    ....    aaaa    aaaa    ....    aaaa    aaaa    aaaa    aaaa    aaaa
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+//  ....    ....    dddd    dddd    dddd    dddd    dddd    ....    dddd    dddd
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+//  aaaa      dddd
+// b    c    e    a
+// b    c    e    a
+//  dddd      ffff
+// e    f    g    b
+// e    f    g    b
+//  gggg      cccc 
+
+// a => d
+// b => e
+// c => a
+// d => f
+// e => g
+// f => b
+// g => c
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  aaaa    ....    aaaa    aaaa    ....    aaaa    aaaa    aaaa    aaaa    aaaa
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+// b    c  .    c  .    c  .    c  b    c  b    .  b    .  .    c  b    c  b    c
+//  ....    ....    dddd    dddd    dddd    dddd    dddd    ....    dddd    dddd
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+// e    f  .    f  e    .  .    f  .    f  .    f  e    f  .    f  e    f  .    f
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+// acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf
+//    8                       7                 4          1  |
+
+// Cominations
+
+// 1 & 7 - (a b) d
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// #    a  .    a  .    a  .    a  #    a  #    .  #    .  .    a  #    a  #    a
+// #    a  .    a  .    a  .    a  #    a  #    .  #    .  .    a  #    a  #    a
+//  ....    ....    ####    ####    ####    ####    ####    ....    ####    ####
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 4 - ((a b) d) e f
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 8 - ((a b) d) e f | acedgfb => adefb cg 
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+// e    a  .    a  .    a  .    a  e    a  e    .  e    .  .    a  e    a  e    a
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+//  cccc    ....    cccc    cccc    ....    cccc    cccc    ....    cccc    cccc
+
+//            2       3       5
+// cdfbe    dafcg | dafbg | defbg       bcdef    acdfg  abdfh bdefg
+// gcdfa    dafcg | dafbg | defbg       acdfg   *acdfg* abdfh bdefg
+// fbcad    dafcg | dafbg | defbg       abcdf    acdfg  abdfh bdefg
+
+//            2       3       5
+// cdfbe    dafgc | dafbc | defbc       bcdef    acdfg  abcdf *bcdef*
+// gcdfa    dafgc | dafbc | defbc       acdfg   *acdfg* abcdf  bcdef
+// fbcad    dafgc | dafbc | defbc       abcdf    acdfg *abcdf* bcdef
+
+// 4 - ((a b) d) f e
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+// #    b  .    b  #    .  .    b  .    b  .    b  #    b  .    b  #    b  .    b
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 8 - ((a b) d) f e | acedgfb => adefb cg
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+// c    b  .    b  c    .  .    b  .    b  .    b  c    b  .    b  c    b  .    b
+//  gggg    ....    gggg    gggg    ....    gggg    gggg    ....    gggg    gggg
+
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+// f    a  .    a  .    a  .    a  f    a  f    .  f    .  .    a  f    a  f    a
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+// g    b  .    b  g    .  .    b  .    b  .    b  g    b  .    b  g    b  .    b
+//  cccc    ....    cccc    cccc    ....    cccc    cccc    ....    cccc    cccc
+
+// 2 3 5
+
+// cdfbe   daegc | daebc | dfebc       bcdef   acdeg abcde *bcdef*
+// gcdfa   daegc | daebc | dfebc       acdfg   acdeg abcde bcefd
+// fbcad   daegc | daebc | dfebc       abcdf   acdeg abcde abdef
+
+// --- --- ---
+
+// 1 & 7 - (b a) d
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// #    b  .    b  .    b  .    b  #    b  #    .  #    .  .    b  #    b  #    b
+// #    b  .    b  .    b  .    b  #    b  #    .  #    .  .    b  #    b  #    b
+//  ....    ....    ####    ####    ####    ####    ####    ....    ####    ####
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 4 - ((b a) d) e f
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// e    b  .    b  .    b  .    b  e    b  e    .  e    .  .    b  e    b  e    b
+// e    b  .    b  .    b  .    b  e    b  e    .  e    .  .    b  e    b  e    b
+//  ....    ....    ffff    ffff    ffff    ffff    ffff    ....    ffff    ffff
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####
+
+// 4 - ((b a) d) f e
+
+//   0:      1:      2:      3:      4:      5:      6:      7:      8:      9:
+//  dddd    ....    dddd    dddd    ....    dddd    dddd    dddd    dddd    dddd
+// f    b  .    b  .    b  .    b  f    b  f    .  f    .  .    b  f    b  f    b
+// f    b  .    b  .    b  .    b  f    b  f    .  f    .  .    b  f    b  f    b
+//  ....    ....    eeee    eeee    eeee    eeee    eeee    ....    eeee    eeee
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+// #    a  .    a  #    .  .    a  .    a  .    a  #    a  .    a  #    a  .    a
+//  ####    ....    ####    ####    ....    ####    ####    ....    ####    ####

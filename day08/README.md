@@ -16,6 +16,8 @@ Output from [input.txt](day08/input.txt).
 
 ## C#
 
+- [Solution](solution.csx)
+
 `cd day08`
 
 `dotnet script solution.csx`
