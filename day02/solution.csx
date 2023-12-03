@@ -25,7 +25,7 @@ string[] lines = System.IO.File.ReadAllLines(@"input.txt");
 
 foreach(var line in lines)
 {
-    (string cmd, int amount) command = line.Split(" ") switch { var a => (a[0], Int32.Parse(a[1])) };
+    (string cmd, int amount) command = line.Split(' ') switch { var a => (a[0], Int32.Parse(a[1])) };
     Console.WriteLine(command);
     // this.GetType().GetMethod(command.cmd).Invoke(this, new object[]{ command.amount } );
 
